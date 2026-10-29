@@ -9,3 +9,7 @@ https://www.nature.com/articles/s41586-024-07939-3
 https://arxiv.org/abs/2006.04902
 
 https://datahacker.rs/002-advanced-computer-vision-motion-estimation-with-optical-flow/
+
+https://pubmed.ncbi.nlm.nih.gov/33888564/
+
+https://pubmed.ncbi.nlm.nih.gov/17204415/
