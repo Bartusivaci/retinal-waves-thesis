@@ -1,0 +1,542 @@
+{
+  "baseline": "/home/er75iruc/Documents/GitHub/retinal-waves-thesis/checkpoints/flyvis_initial.pt",
+  "trained": "/home/er75iruc/Documents/GitHub/retinal-waves-thesis/results/multi_window/retinal_waves_1000/final.pt",
+  "dt_provisional": 0.02,
+  "edge": {
+    "L1": {
+      "edge_locations": 165,
+      "interior_locations": 484,
+      "baseline": {
+        "mean_edge_amplitude": 0.00701829744502902,
+        "mean_interior_amplitude": 0.003933093510568142,
+        "edge_to_interior_ratio": 1.7844171723858897
+      },
+      "trained": {
+        "mean_edge_amplitude": 0.00682091573253274,
+        "mean_interior_amplitude": 0.00391594460234046,
+        "edge_to_interior_ratio": 1.7418270703281553
+      }
+    },
+    "Mi1": {
+      "edge_locations": 165,
+      "interior_locations": 484,
+      "baseline": {
+        "mean_edge_amplitude": 0.0010442325146868825,
+        "mean_interior_amplitude": 0.0007077322807163,
+        "edge_to_interior_ratio": 1.4754417577398704
+      },
+      "trained": {
+        "mean_edge_amplitude": 0.0008467654115520418,
+        "mean_interior_amplitude": 0.0004221741983201355,
+        "edge_to_interior_ratio": 2.005677651890593
+      }
+    },
+    "Tm3": {
+      "edge_locations": 165,
+      "interior_locations": 484,
+      "baseline": {
+        "mean_edge_amplitude": 0.001425094553269446,
+        "mean_interior_amplitude": 0.0014665140770375729,
+        "edge_to_interior_ratio": 0.9717498509456347
+      },
+      "trained": {
+        "mean_edge_amplitude": 0.0011266794754192233,
+        "mean_interior_amplitude": 0.001128251082263887,
+        "edge_to_interior_ratio": 0.9985981907294985
+      }
+    },
+    "T4a": {
+      "edge_locations": 165,
+      "interior_locations": 484,
+      "baseline": {
+        "mean_edge_amplitude": 0.0018048326019197702,
+        "mean_interior_amplitude": 0.001716115279123187,
+        "edge_to_interior_ratio": 1.05169047031456
+      },
+      "trained": {
+        "mean_edge_amplitude": 0.0015714437467977405,
+        "mean_interior_amplitude": 0.0014110764022916555,
+        "edge_to_interior_ratio": 1.1136410529118974
+      }
+    },
+    "T4b": {
+      "edge_locations": 165,
+      "interior_locations": 484,
+      "baseline": {
+        "mean_edge_amplitude": 0.0029642197769135237,
+        "mean_interior_amplitude": 0.003116497304290533,
+        "edge_to_interior_ratio": 0.9511351931800855
+      },
+      "trained": {
+        "mean_edge_amplitude": 0.002916884608566761,
+        "mean_interior_amplitude": 0.003076460212469101,
+        "edge_to_interior_ratio": 0.9481270440209267
+      }
+    },
+    "T4c": {
+      "edge_locations": 165,
+      "interior_locations": 484,
+      "baseline": {
+        "mean_edge_amplitude": 0.003418338019400835,
+        "mean_interior_amplitude": 0.0034338098485022783,
+        "edge_to_interior_ratio": 0.9954913682765868
+      },
+      "trained": {
+        "mean_edge_amplitude": 0.0033601003233343363,
+        "mean_interior_amplitude": 0.0033121209125965834,
+        "edge_to_interior_ratio": 1.0144829452710693
+      }
+    },
+    "T4d": {
+      "edge_locations": 165,
+      "interior_locations": 484,
+      "baseline": {
+        "mean_edge_amplitude": 0.0016587271820753813,
+        "mean_interior_amplitude": 0.001769346185028553,
+        "edge_to_interior_ratio": 0.9374749957700651
+      },
+      "trained": {
+        "mean_edge_amplitude": 0.00172259914688766,
+        "mean_interior_amplitude": 0.0018412695499137044,
+        "edge_to_interior_ratio": 0.9355446037340682
+      }
+    },
+    "T5a": {
+      "edge_locations": 165,
+      "interior_locations": 484,
+      "baseline": {
+        "mean_edge_amplitude": 0.0011492896592244506,
+        "mean_interior_amplitude": 0.0012288480065762997,
+        "edge_to_interior_ratio": 0.9352501697299161
+      },
+      "trained": {
+        "mean_edge_amplitude": 0.0012281666276976466,
+        "mean_interior_amplitude": 0.0011487978044897318,
+        "edge_to_interior_ratio": 1.0690792862807577
+      }
+    },
+    "T5b": {
+      "edge_locations": 165,
+      "interior_locations": 484,
+      "baseline": {
+        "mean_edge_amplitude": 0.000799091998487711,
+        "mean_interior_amplitude": 0.001049235463142395,
+        "edge_to_interior_ratio": 0.7615872801532093
+      },
+      "trained": {
+        "mean_edge_amplitude": 0.0009263789397664368,
+        "mean_interior_amplitude": 0.0010388210648670793,
+        "edge_to_interior_ratio": 0.8917512876696357
+      }
+    },
+    "T5c": {
+      "edge_locations": 165,
+      "interior_locations": 484,
+      "baseline": {
+        "mean_edge_amplitude": 0.0017687386134639382,
+        "mean_interior_amplitude": 0.0015668419655412436,
+        "edge_to_interior_ratio": 1.1288485781443662
+      },
+      "trained": {
+        "mean_edge_amplitude": 0.001993950456380844,
+        "mean_interior_amplitude": 0.0017862137174233794,
+        "edge_to_interior_ratio": 1.1162937973173426
+      }
+    },
+    "T5d": {
+      "edge_locations": 165,
+      "interior_locations": 484,
+      "baseline": {
+        "mean_edge_amplitude": 0.0017616346012800932,
+        "mean_interior_amplitude": 0.0016310537466779351,
+        "edge_to_interior_ratio": 1.0800525760370177
+      },
+      "trained": {
+        "mean_edge_amplitude": 0.002102438360452652,
+        "mean_interior_amplitude": 0.0019660198595374823,
+        "edge_to_interior_ratio": 1.0693827208439552
+      }
+    }
+  },
+  "direction": {
+    "L1": {
+      "baseline": {
+        "mean_direction_selectivity": 0.1386267989873886,
+        "median_direction_selectivity": 0.15901271998882294,
+        "mean_response_by_direction": {
+          "right": 0.017733488231897354,
+          "left": 0.01770705170929432,
+          "down": 0.017497532069683075,
+          "up": 0.017478378489613533
+        },
+        "preferred_direction_counts": {
+          "right": 205,
+          "left": 202,
+          "down": 160,
+          "up": 154
+        }
+      },
+      "trained": {
+        "mean_direction_selectivity": 0.14441721141338348,
+        "median_direction_selectivity": 0.16443854570388794,
+        "mean_response_by_direction": {
+          "right": 0.01700644940137863,
+          "left": 0.01697664149105549,
+          "down": 0.0167799461632967,
+          "up": 0.016758866608142853
+        },
+        "preferred_direction_counts": {
+          "right": 206,
+          "left": 203,
+          "down": 161,
+          "up": 151
+        }
+      }
+    },
+    "Mi1": {
+      "baseline": {
+        "mean_direction_selectivity": 0.17567989230155945,
+        "median_direction_selectivity": 0.19090719521045685,
+        "mean_response_by_direction": {
+          "right": 0.002409702865406871,
+          "left": 0.0024103557225316763,
+          "down": 0.002381148748099804,
+          "up": 0.002385171363130212
+        },
+        "preferred_direction_counts": {
+          "right": 202,
+          "left": 202,
+          "down": 160,
+          "up": 157
+        }
+      },
+      "trained": {
+        "mean_direction_selectivity": 0.14655210077762604,
+        "median_direction_selectivity": 0.1680653691291809,
+        "mean_response_by_direction": {
+          "right": 0.0021459574345499277,
+          "left": 0.0021452016662806273,
+          "down": 0.0021069475915282965,
+          "up": 0.002115116687491536
+        },
+        "preferred_direction_counts": {
+          "right": 202,
+          "left": 198,
+          "down": 146,
+          "up": 175
+        }
+      }
+    },
+    "Tm3": {
+      "baseline": {
+        "mean_direction_selectivity": 0.4683632254600525,
+        "median_direction_selectivity": 0.4952610433101654,
+        "mean_response_by_direction": {
+          "right": 0.002019641688093543,
+          "left": 0.0021017128601670265,
+          "down": 0.0020821078214794397,
+          "up": 0.0020733869168907404
+        },
+        "preferred_direction_counts": {
+          "right": 194,
+          "left": 200,
+          "down": 166,
+          "up": 161
+        }
+      },
+      "trained": {
+        "mean_direction_selectivity": 0.3888140618801117,
+        "median_direction_selectivity": 0.40954604744911194,
+        "mean_response_by_direction": {
+          "right": 0.001851830049417913,
+          "left": 0.0019388559740036726,
+          "down": 0.0019029548857361078,
+          "up": 0.001901033683679998
+        },
+        "preferred_direction_counts": {
+          "right": 190,
+          "left": 198,
+          "down": 169,
+          "up": 164
+        }
+      }
+    },
+    "T4a": {
+      "baseline": {
+        "mean_direction_selectivity": 0.2745118737220764,
+        "median_direction_selectivity": 0.2172810137271881,
+        "mean_response_by_direction": {
+          "right": 0.001800318481400609,
+          "left": 0.0019107774132862687,
+          "down": 0.0019215046195313334,
+          "up": 0.0017980270786210895
+        },
+        "preferred_direction_counts": {
+          "right": 167,
+          "left": 273,
+          "down": 172,
+          "up": 109
+        }
+      },
+      "trained": {
+        "mean_direction_selectivity": 0.2144714891910553,
+        "median_direction_selectivity": 0.1640191525220871,
+        "mean_response_by_direction": {
+          "right": 0.0015238644555211067,
+          "left": 0.0015774855855852365,
+          "down": 0.0015974553534761071,
+          "up": 0.0015109630767256021
+        },
+        "preferred_direction_counts": {
+          "right": 215,
+          "left": 235,
+          "down": 174,
+          "up": 97
+        }
+      }
+    },
+    "T4b": {
+      "baseline": {
+        "mean_direction_selectivity": 0.09097734838724136,
+        "median_direction_selectivity": 0.04033332318067551,
+        "mean_response_by_direction": {
+          "right": 0.003155602142214775,
+          "left": 0.003165855538100004,
+          "down": 0.003158392384648323,
+          "up": 0.003167710965499282
+        },
+        "preferred_direction_counts": {
+          "right": 191,
+          "left": 226,
+          "down": 141,
+          "up": 163
+        }
+      },
+      "trained": {
+        "mean_direction_selectivity": 0.05497175455093384,
+        "median_direction_selectivity": 0.021662093698978424,
+        "mean_response_by_direction": {
+          "right": 0.0031186691485345364,
+          "left": 0.003141931025311351,
+          "down": 0.0031281751580536366,
+          "up": 0.003137449035421014
+        },
+        "preferred_direction_counts": {
+          "right": 80,
+          "left": 312,
+          "down": 134,
+          "up": 195
+        }
+      }
+    },
+    "T4c": {
+      "baseline": {
+        "mean_direction_selectivity": 0.14286541938781738,
+        "median_direction_selectivity": 0.08051980286836624,
+        "mean_response_by_direction": {
+          "right": 0.0035224873572587967,
+          "left": 0.003566529368981719,
+          "down": 0.0035537872463464737,
+          "up": 0.0035389524418860674
+        },
+        "preferred_direction_counts": {
+          "right": 174,
+          "left": 253,
+          "down": 157,
+          "up": 137
+        }
+      },
+      "trained": {
+        "mean_direction_selectivity": 0.12832829356193542,
+        "median_direction_selectivity": 0.07285553216934204,
+        "mean_response_by_direction": {
+          "right": 0.003426149021834135,
+          "left": 0.003482525236904621,
+          "down": 0.0034656794741749763,
+          "up": 0.0034457542933523655
+        },
+        "preferred_direction_counts": {
+          "right": 140,
+          "left": 245,
+          "down": 211,
+          "up": 125
+        }
+      }
+    },
+    "T4d": {
+      "baseline": {
+        "mean_direction_selectivity": 0.10878448188304901,
+        "median_direction_selectivity": 0.052801426500082016,
+        "mean_response_by_direction": {
+          "right": 0.0017871491145342588,
+          "left": 0.001798477373085916,
+          "down": 0.0018011407228186727,
+          "up": 0.001792799448594451
+        },
+        "preferred_direction_counts": {
+          "right": 175,
+          "left": 204,
+          "down": 169,
+          "up": 173
+        }
+      },
+      "trained": {
+        "mean_direction_selectivity": 0.1545315831899643,
+        "median_direction_selectivity": 0.08993545919656754,
+        "mean_response_by_direction": {
+          "right": 0.001871726824901998,
+          "left": 0.0018848200561478734,
+          "down": 0.0018886564066633582,
+          "up": 0.0018824886064976454
+        },
+        "preferred_direction_counts": {
+          "right": 160,
+          "left": 172,
+          "down": 183,
+          "up": 206
+        }
+      }
+    },
+    "T5a": {
+      "baseline": {
+        "mean_direction_selectivity": 0.12472815811634064,
+        "median_direction_selectivity": 0.10641562193632126,
+        "mean_response_by_direction": {
+          "right": 0.0012461701408028603,
+          "left": 0.0012067059287801385,
+          "down": 0.0012139073805883527,
+          "up": 0.0012231875443831086
+        },
+        "preferred_direction_counts": {
+          "right": 227,
+          "left": 121,
+          "down": 172,
+          "up": 201
+        }
+      },
+      "trained": {
+        "mean_direction_selectivity": 0.2987557053565979,
+        "median_direction_selectivity": 0.2604670822620392,
+        "mean_response_by_direction": {
+          "right": 0.0013257586397230625,
+          "left": 0.0011258239392191172,
+          "down": 0.0011858913348987699,
+          "up": 0.0012247873237356544
+        },
+        "preferred_direction_counts": {
+          "right": 261,
+          "left": 104,
+          "down": 164,
+          "up": 192
+        }
+      }
+    },
+    "T5b": {
+      "baseline": {
+        "mean_direction_selectivity": 0.1626557558774948,
+        "median_direction_selectivity": 0.14842714369297028,
+        "mean_response_by_direction": {
+          "right": 0.0010189914610236883,
+          "left": 0.0009636983158998191,
+          "down": 0.0009771838085725904,
+          "up": 0.0009878381388261914
+        },
+        "preferred_direction_counts": {
+          "right": 263,
+          "left": 117,
+          "down": 168,
+          "up": 173
+        }
+      },
+      "trained": {
+        "mean_direction_selectivity": 0.3217404782772064,
+        "median_direction_selectivity": 0.2979094088077545,
+        "mean_response_by_direction": {
+          "right": 0.0011526909656822681,
+          "left": 0.000946364423725754,
+          "down": 0.0010146296117454767,
+          "up": 0.001050182618200779
+        },
+        "preferred_direction_counts": {
+          "right": 271,
+          "left": 102,
+          "down": 161,
+          "up": 187
+        }
+      }
+    },
+    "T5c": {
+      "baseline": {
+        "mean_direction_selectivity": 0.12488142400979996,
+        "median_direction_selectivity": 0.08545124530792236,
+        "mean_response_by_direction": {
+          "right": 0.0016885329969227314,
+          "left": 0.001625646953471005,
+          "down": 0.0016514994204044342,
+          "up": 0.0016490627313032746
+        },
+        "preferred_direction_counts": {
+          "right": 262,
+          "left": 134,
+          "down": 165,
+          "up": 160
+        }
+      },
+      "trained": {
+        "mean_direction_selectivity": 0.25028368830680847,
+        "median_direction_selectivity": 0.19419775903224945,
+        "mean_response_by_direction": {
+          "right": 0.0019589168950915337,
+          "left": 0.0017866549314931035,
+          "down": 0.001863087760284543,
+          "up": 0.0018640103517100215
+        },
+        "preferred_direction_counts": {
+          "right": 258,
+          "left": 132,
+          "down": 165,
+          "up": 166
+        }
+      }
+    },
+    "T5d": {
+      "baseline": {
+        "mean_direction_selectivity": 0.12555602192878723,
+        "median_direction_selectivity": 0.09498480707406998,
+        "mean_response_by_direction": {
+          "right": 0.0017456812784075737,
+          "left": 0.0016797749558463693,
+          "down": 0.0017094793729484081,
+          "up": 0.0017009449657052755
+        },
+        "preferred_direction_counts": {
+          "right": 258,
+          "left": 134,
+          "down": 171,
+          "up": 158
+        }
+      },
+      "trained": {
+        "mean_direction_selectivity": 0.24759837985038757,
+        "median_direction_selectivity": 0.183097243309021,
+        "mean_response_by_direction": {
+          "right": 0.002128387102857232,
+          "left": 0.0019628724548965693,
+          "down": 0.0020461331587284803,
+          "up": 0.0020163750741630793
+        },
+        "preferred_direction_counts": {
+          "right": 264,
+          "left": 132,
+          "down": 169,
+          "up": 156
+        }
+      }
+    }
+  },
+  "notes": [
+    "Input retinotopy alone can preserve a tree silhouette; outline extraction requires boundary selectivity.",
+    "Direction metric uses nonnegative evoked response amplitude, not signed polarity.",
+    "One training seed and synthetic stimuli; descriptive results, not evidence of improved vision."
+  ]
+}

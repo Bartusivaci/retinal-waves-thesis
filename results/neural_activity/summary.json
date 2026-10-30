@@ -1,0 +1,67 @@
+{
+  "sample": {
+    "frames": [
+      20,
+      1,
+      256,
+      256
+    ],
+    "folder": "0",
+    "segment_id": 0,
+    "start_frame": 0,
+    "start_timestep": 2
+  },
+  "device": "cuda:0",
+  "dt": 0.02,
+  "gain": 1.0,
+  "groups": {
+    "L1": {
+      "neurons": 721,
+      "mean_abs_change": 0.028492573648691177,
+      "peak_abs_change": 0.9846267700195312,
+      "mean_signed_change": 0.02845490351319313,
+      "baseline_mean_activity": 0.4777844250202179,
+      "wave_mean_activity": 0.5062393546104431
+    },
+    "Mi1": {
+      "neurons": 721,
+      "mean_abs_change": 0.00032042330713011324,
+      "peak_abs_change": 0.010030269622802734,
+      "mean_signed_change": -0.00032042161910794675,
+      "baseline_mean_activity": 0.45460420846939087,
+      "wave_mean_activity": 0.45428377389907837
+    },
+    "Tm3": {
+      "neurons": 721,
+      "mean_abs_change": 0.002892137272283435,
+      "peak_abs_change": 0.08095026016235352,
+      "mean_signed_change": -0.0028920068871229887,
+      "baseline_mean_activity": 0.6116858124732971,
+      "wave_mean_activity": 0.6087938547134399
+    },
+    "T4a": {
+      "neurons": 721,
+      "mean_abs_change": 0.0002426974824629724,
+      "peak_abs_change": 0.005910545587539673,
+      "mean_signed_change": -0.00023254910774994642,
+      "baseline_mean_activity": 0.30333542823791504,
+      "wave_mean_activity": 0.30310285091400146
+    },
+    "T5a": {
+      "neurons": 721,
+      "mean_abs_change": 0.00011745690426323563,
+      "peak_abs_change": 0.0023235678672790527,
+      "mean_signed_change": 0.00011672021355479956,
+      "baseline_mean_activity": 0.4749022126197815,
+      "wave_mean_activity": 0.4750189483165741
+    },
+    "Photoreceptors (input role)": {
+      "neurons": 5768,
+      "mean_abs_change": 9.22309823181422e-07,
+      "peak_abs_change": 8.824467658996582e-05,
+      "mean_signed_change": 9.216830676450627e-07,
+      "baseline_mean_activity": 0.47028377652168274,
+      "wave_mean_activity": 0.47028470039367676
+    }
+  }
+}

@@ -1,0 +1,164 @@
+[
+  {
+    "gap": 1,
+    "parameter_change_l2": 0.0069612690300599085,
+    "validation": {
+      "common_mask_fraction": 0.95361328125,
+      "methods": {
+        "zero": {
+          "full": {
+            "l1": 0.01960747316479683,
+            "weighted": 0.06893721222877502,
+            "active_l1": 0.2167691317471591,
+            "n_evaluated_pixels": 4096
+          },
+          "common_mask": {
+            "l1": 0.019361168802303347,
+            "weighted": 0.06809897720813751,
+            "active_l1": 0.2170079474575009,
+            "n_evaluated_pixels": 3906
+          },
+          "mean_abs_flow_pixels": 0.0
+        },
+        "untrained": {
+          "full": {
+            "l1": 0.020023485645651817,
+            "weighted": 0.06987902522087097,
+            "active_l1": 0.21944799502033832,
+            "n_evaluated_pixels": 4096
+          },
+          "common_mask": {
+            "l1": 0.01981751441467254,
+            "weighted": 0.06916522234678268,
+            "active_l1": 0.22014356148907166,
+            "n_evaluated_pixels": 3906
+          },
+          "mean_abs_flow_pixels": 0.05834526568651199
+        },
+        "trained": {
+          "full": {
+            "l1": 0.01823584735393524,
+            "weighted": 0.06389059126377106,
+            "active_l1": 0.19880390429956526,
+            "n_evaluated_pixels": 4096
+          },
+          "common_mask": {
+            "l1": 0.01806823449200749,
+            "weighted": 0.06322166323661804,
+            "active_l1": 0.19955871671525613,
+            "n_evaluated_pixels": 3906
+          },
+          "mean_abs_flow_pixels": 0.10590203106403351
+        }
+      }
+    }
+  },
+  {
+    "gap": 3,
+    "parameter_change_l2": 0.006332903389009041,
+    "validation": {
+      "common_mask_fraction": 0.95361328125,
+      "methods": {
+        "zero": {
+          "full": {
+            "l1": 0.04399101808667183,
+            "weighted": 0.16288945078849792,
+            "active_l1": 0.44595792000753837,
+            "n_evaluated_pixels": 4096
+          },
+          "common_mask": {
+            "l1": 0.04347471206907242,
+            "weighted": 0.1615234911441803,
+            "active_l1": 0.4471659342447917,
+            "n_evaluated_pixels": 3906
+          },
+          "mean_abs_flow_pixels": 0.0
+        },
+        "untrained": {
+          "full": {
+            "l1": 0.04392065852880478,
+            "weighted": 0.16172295808792114,
+            "active_l1": 0.4439896509462132,
+            "n_evaluated_pixels": 4096
+          },
+          "common_mask": {
+            "l1": 0.04336712705863175,
+            "weighted": 0.16024816036224365,
+            "active_l1": 0.44496964518229165,
+            "n_evaluated_pixels": 3906
+          },
+          "mean_abs_flow_pixels": 0.05834526568651199
+        },
+        "trained": {
+          "full": {
+            "l1": 0.042251601815223694,
+            "weighted": 0.1559666097164154,
+            "active_l1": 0.4277381992579104,
+            "n_evaluated_pixels": 4096
+          },
+          "common_mask": {
+            "l1": 0.04172671738491263,
+            "weighted": 0.1545051634311676,
+            "active_l1": 0.42856315104166665,
+            "n_evaluated_pixels": 3906
+          },
+          "mean_abs_flow_pixels": 0.10699895024299622
+        }
+      }
+    }
+  },
+  {
+    "gap": 5,
+    "parameter_change_l2": 0.006885528729562942,
+    "validation": {
+      "common_mask_fraction": 0.95361328125,
+      "methods": {
+        "zero": {
+          "full": {
+            "l1": 0.06303399056196213,
+            "weighted": 0.23089921474456787,
+            "active_l1": 0.5923026049578631,
+            "n_evaluated_pixels": 4096
+          },
+          "common_mask": {
+            "l1": 0.061571878100198416,
+            "weighted": 0.2268671989440918,
+            "active_l1": 0.5916557217354218,
+            "n_evaluated_pixels": 3906
+          },
+          "mean_abs_flow_pixels": 0.0
+        },
+        "untrained": {
+          "full": {
+            "l1": 0.06332267820835114,
+            "weighted": 0.2312452793121338,
+            "active_l1": 0.5941265247486256,
+            "n_evaluated_pixels": 4096
+          },
+          "common_mask": {
+            "l1": 0.061833949560271856,
+            "weighted": 0.22724033892154694,
+            "active_l1": 0.5935833270733173,
+            "n_evaluated_pixels": 3906
+          },
+          "mean_abs_flow_pixels": 0.05834526568651199
+        },
+        "trained": {
+          "full": {
+            "l1": 0.061675187200307846,
+            "weighted": 0.22550860047340393,
+            "active_l1": 0.5791826248168945,
+            "n_evaluated_pixels": 4096
+          },
+          "common_mask": {
+            "l1": 0.0602503169577853,
+            "weighted": 0.2215689718723297,
+            "active_l1": 0.5785831801648768,
+            "n_evaluated_pixels": 3906
+          },
+          "mean_abs_flow_pixels": 0.10714788734912872
+        }
+      }
+    }
+  }
+]

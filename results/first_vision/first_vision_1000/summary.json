@@ -1,0 +1,107 @@
+{
+  "baseline": "/home/er75iruc/Documents/GitHub/retinal-waves-thesis/checkpoints/flyvis_initial.pt",
+  "trained": "/home/er75iruc/Documents/GitHub/retinal-waves-thesis/results/multi_window/retinal_waves_1000/final.pt",
+  "device": "cuda:0",
+  "dt": 0.02,
+  "pre_onset_frames": 10,
+  "stimulus_frames": 20,
+  "results": {
+    "tree_onset": {
+      "L1": {
+        "mean_abs_difference_in_evoked_response": 0.0002131185756297782,
+        "rms_evoked_baseline": 0.009483582340180874,
+        "rms_evoked_trained": 0.009165950119495392,
+        "evoked_response_correlation": 0.9999861140393392
+      },
+      "Mi1": {
+        "mean_abs_difference_in_evoked_response": 0.0002934014773927629,
+        "rms_evoked_baseline": 0.0013788603246212006,
+        "rms_evoked_trained": 0.0011642734752967954,
+        "evoked_response_correlation": 0.9984587253363267
+      },
+      "Tm3": {
+        "mean_abs_difference_in_evoked_response": 0.0003335770743433386,
+        "rms_evoked_baseline": 0.0017845630645751953,
+        "rms_evoked_trained": 0.0014909147284924984,
+        "evoked_response_correlation": 0.9976676258475105
+      },
+      "T4a": {
+        "mean_abs_difference_in_evoked_response": 0.0005684294155798852,
+        "rms_evoked_baseline": 0.002226101467385888,
+        "rms_evoked_trained": 0.0017822684021666646,
+        "evoked_response_correlation": 0.9928743977485877
+      },
+      "T5a": {
+        "mean_abs_difference_in_evoked_response": 0.00027470316854305565,
+        "rms_evoked_baseline": 0.0014415776822715998,
+        "rms_evoked_trained": 0.0013911579735577106,
+        "evoked_response_correlation": 0.990080010134346
+      }
+    },
+    "edge_right": {
+      "L1": {
+        "mean_abs_difference_in_evoked_response": 0.0007437164895236492,
+        "rms_evoked_baseline": 0.019593732431530952,
+        "rms_evoked_trained": 0.018802737817168236,
+        "evoked_response_correlation": 0.9999850916207877
+      },
+      "Mi1": {
+        "mean_abs_difference_in_evoked_response": 0.00031603770912624896,
+        "rms_evoked_baseline": 0.0026651036459952593,
+        "rms_evoked_trained": 0.0023998881224542856,
+        "evoked_response_correlation": 0.9969985871348157
+      },
+      "Tm3": {
+        "mean_abs_difference_in_evoked_response": 0.0003280758101027459,
+        "rms_evoked_baseline": 0.0024546924978494644,
+        "rms_evoked_trained": 0.002229527337476611,
+        "evoked_response_correlation": 0.9992071157871463
+      },
+      "T4a": {
+        "mean_abs_difference_in_evoked_response": 0.0005453571793623269,
+        "rms_evoked_baseline": 0.0022524248342961073,
+        "rms_evoked_trained": 0.0018432141514495015,
+        "evoked_response_correlation": 0.9852258251300317
+      },
+      "T5a": {
+        "mean_abs_difference_in_evoked_response": 0.0003346257144585252,
+        "rms_evoked_baseline": 0.0014853918692097068,
+        "rms_evoked_trained": 0.0015851949574425817,
+        "evoked_response_correlation": 0.9740247222949431
+      }
+    },
+    "edge_left": {
+      "L1": {
+        "mean_abs_difference_in_evoked_response": 0.0007620007381774485,
+        "rms_evoked_baseline": 0.019271867349743843,
+        "rms_evoked_trained": 0.01845501735806465,
+        "evoked_response_correlation": 0.9999905453293342
+      },
+      "Mi1": {
+        "mean_abs_difference_in_evoked_response": 0.0003097174922004342,
+        "rms_evoked_baseline": 0.0025840485468506813,
+        "rms_evoked_trained": 0.0023802784271538258,
+        "evoked_response_correlation": 0.9965674317314166
+      },
+      "Tm3": {
+        "mean_abs_difference_in_evoked_response": 0.0003358832036610693,
+        "rms_evoked_baseline": 0.0019489809637889266,
+        "rms_evoked_trained": 0.001821358921006322,
+        "evoked_response_correlation": 0.9987987753792678
+      },
+      "T4a": {
+        "mean_abs_difference_in_evoked_response": 0.0005276859737932682,
+        "rms_evoked_baseline": 0.0020125575829297304,
+        "rms_evoked_trained": 0.0016250550979748368,
+        "evoked_response_correlation": 0.985044151467294
+      },
+      "T5a": {
+        "mean_abs_difference_in_evoked_response": 0.00044551020255312324,
+        "rms_evoked_baseline": 0.001518124365247786,
+        "rms_evoked_trained": 0.0016972721787169576,
+        "evoked_response_correlation": 0.9810763398588932
+      }
+    }
+  },
+  "interpretation": "These are response differences, not proof of improved edge or motion selectivity."
+}
