@@ -1,0 +1,21 @@
+{
+  "steps": 1000,
+  "val_windows": 30,
+  "validate_every": 100,
+  "save_every": 200,
+  "train_gap": 1,
+  "eval_gaps": [
+    1
+  ],
+  "window_size": 15,
+  "side": 64,
+  "gain": 1.0,
+  "dt": 0.02,
+  "active_weight": 5.0,
+  "smooth_weight": 0.01,
+  "network_lr": 1e-05,
+  "head_lr": 0.0001,
+  "seed": 123,
+  "run_name": "finalstate_gap1_1000",
+  "device": "cuda:0"
+}

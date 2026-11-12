@@ -1,0 +1,26 @@
+{
+  "step": 7500,
+  "gaps": {
+    "1": {
+      "samples": 33,
+      "model_weighted": 0.04142517652927023,
+      "zero_weighted": 0.02428626191844656,
+      "improvement_percent": -70.57041000536135,
+      "mean_abs_flow_pixels": 0.4356396234396732
+    },
+    "3": {
+      "samples": 33,
+      "model_weighted": 0.08796066088093953,
+      "zero_weighted": 0.08437895433356364,
+      "improvement_percent": -4.244786600716596,
+      "mean_abs_flow_pixels": 0.435954081289696
+    },
+    "5": {
+      "samples": 33,
+      "model_weighted": 0.14702865549109198,
+      "zero_weighted": 0.14778569462060026,
+      "improvement_percent": 0.51225467488702,
+      "mean_abs_flow_pixels": 0.43634354706966516
+    }
+  }
+}

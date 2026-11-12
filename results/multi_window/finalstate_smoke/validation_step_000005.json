@@ -1,0 +1,12 @@
+{
+  "step": 5,
+  "gaps": {
+    "1": {
+      "samples": 4,
+      "model_weighted": 0.037694556172937155,
+      "zero_weighted": 0.038987626670859754,
+      "improvement_percent": 3.316617625481342,
+      "mean_abs_flow_pixels": 0.07030033320188522
+    }
+  }
+}

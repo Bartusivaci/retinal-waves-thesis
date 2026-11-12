@@ -1,0 +1,21 @@
+{
+  "steps": 10,
+  "val_windows": 4,
+  "validate_every": 5,
+  "save_every": 5,
+  "train_gap": 1,
+  "eval_gaps": [
+    1
+  ],
+  "window_size": 15,
+  "side": 64,
+  "gain": 1.0,
+  "dt": 0.02,
+  "active_weight": 5.0,
+  "smooth_weight": 0.01,
+  "network_lr": 1e-05,
+  "head_lr": 0.0001,
+  "seed": 123,
+  "run_name": "finalstate_smoke",
+  "device": "cuda:0"
+}
