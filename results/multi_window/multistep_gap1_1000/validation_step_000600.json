@@ -1,0 +1,10 @@
+{
+  "step": 600,
+  "windows": 30,
+  "pairs_per_window": 13,
+  "model_weighted": 0.023862302877629797,
+  "zero_weighted": 0.023793846423116823,
+  "improvement_percent": -0.2877065493978529,
+  "mean_abs_flow_pixels": 0.004157339548692107,
+  "mean_smoothness": 2.7028259319195057e-05
+}
