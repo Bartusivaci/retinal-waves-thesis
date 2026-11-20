@@ -1,0 +1,14 @@
+{
+  "photo": 0.020108506036922335,
+  "zero_photo": 0.019517982890829445,
+  "oracle_photo": 0.0015144157950999215,
+  "epe_px": 1.0628800958395004,
+  "flow_mean_abs_px": 0.060895602032542226,
+  "smooth": 2.8684845983661943e-05,
+  "total": 0.020108792930841446,
+  "improvement_percent": -3.025533680380202,
+  "samples": 20,
+  "step": 5,
+  "objective": "photo",
+  "split": "test"
+}

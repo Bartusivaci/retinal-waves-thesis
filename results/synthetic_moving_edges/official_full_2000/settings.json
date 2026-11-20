@@ -1,0 +1,19 @@
+{
+  "mode": "full",
+  "dataset": "/home/er75iruc/Documents/GitHub/retinal-waves-thesis/dataset/synthetic_moving_edges",
+  "steps": 2000,
+  "overfit_samples": 4,
+  "val_samples": 12,
+  "test_samples": 12,
+  "frames": 20,
+  "warmup": 5,
+  "dt": 0.02,
+  "t_pre": 0.5,
+  "network_lr": 1e-05,
+  "decoder_lr": 1e-05,
+  "freeze_network": false,
+  "validate_every": 100,
+  "seed": 2026,
+  "device": "cuda:0",
+  "run_name": "official_full_2000"
+}

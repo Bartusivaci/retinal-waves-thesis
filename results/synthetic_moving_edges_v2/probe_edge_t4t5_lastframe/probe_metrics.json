@@ -1,0 +1,26 @@
+{
+  "lambda": 10,
+  "val": {
+    "epe_px": 0.9790365672760811,
+    "zero_epe_px": 0.9726847295738895,
+    "improvement_over_zero_pct": -0.6530212214778119,
+    "r2_dx": -0.0355010522009489,
+    "r2_dy": -0.01362734621116557,
+    "sign_acc_dx": 0.48,
+    "sign_acc_dy": 0.46
+  },
+  "test": {
+    "epe_px": 0.9578480316264448,
+    "zero_epe_px": 0.9503845863728568,
+    "improvement_over_zero_pct": -0.7853079017276832,
+    "r2_dx": -0.06466751700662998,
+    "r2_dy": -0.04543345768388707,
+    "sign_acc_dx": 0.56,
+    "sign_acc_dy": 0.5
+  },
+  "n_train": 200,
+  "n_features": 5768,
+  "features": "last_frame",
+  "types": "T4a,T4b,T4c,T4d,T5a,T5b,T5c,T5d",
+  "dataset": "dataset/synthetic_moving_edges_v2"
+}
