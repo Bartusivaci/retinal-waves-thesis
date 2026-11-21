@@ -1,0 +1,23 @@
+{
+  "photo": 0.02428620449732989,
+  "photo_zero": 0.03307713210582733,
+  "smooth": 0.02012733502313495,
+  "valid_frac": 0.9365853083133697,
+  "epe_px": 0.7628739254549146,
+  "zero_epe_px": 0.996420961022377,
+  "flow_abs_px": 0.35081787809729575,
+  "sign_accuracy": 0.5000184925850044,
+  "pred_std": 0.3553167974948883,
+  "pred_mean_x": -0.6971348276734353,
+  "pred_mean_y": -0.004490590435452759,
+  "count": 100,
+  "improvement_over_zero_pct": 23.43859118818934,
+  "corr_clipmean_x": 0.9850862349992617,
+  "pred_between_clip_std_x": 0.2975481645299237,
+  "balanced_sign_acc_x": 0.5,
+  "corr_clipmean_y": -0.6474689381907144,
+  "pred_between_clip_std_y": 0.00024091036390577373,
+  "balanced_sign_acc_y": NaN,
+  "photo_improvement_over_zero_pct": 26.577055049306118,
+  "step": 29000
+}

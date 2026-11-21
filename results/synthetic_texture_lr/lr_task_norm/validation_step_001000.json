@@ -1,0 +1,18 @@
+{
+  "epe_px": 0.996389985382557,
+  "zero_epe_px": 0.996420961022377,
+  "flow_abs_px": 0.3869167774915695,
+  "sign_accuracy": 0.5,
+  "pred_std": 0.386724274456501,
+  "pred_mean_x": -0.773511523604393,
+  "pred_mean_y": -0.00024546173692215236,
+  "count": 100,
+  "improvement_over_zero_pct": 0.0031086901050580984,
+  "corr_clipmean_x": 0.05722676491061603,
+  "pred_between_clip_std_x": 0.0005471771577927118,
+  "balanced_sign_acc_x": 0.5,
+  "corr_clipmean_y": 0.05522910157773871,
+  "pred_between_clip_std_y": 9.591016338473067e-06,
+  "balanced_sign_acc_y": NaN,
+  "step": 1000
+}

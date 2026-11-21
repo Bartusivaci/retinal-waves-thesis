@@ -1,0 +1,26 @@
+{
+  "lambda": 10,
+  "val": {
+    "epe_px": 1.0001557471626925,
+    "zero_epe_px": 0.9964209502935409,
+    "improvement_over_zero_pct": -0.37482119058729335,
+    "r2_dx": -0.018922735143694913,
+    "r2_dy": -0.015296468680953357,
+    "sign_acc_dx": 0.49,
+    "sign_acc_dy": 0.5
+  },
+  "test": {
+    "epe_px": 0.9960328354506035,
+    "zero_epe_px": 1.009977723956108,
+    "improvement_over_zero_pct": 1.38071248253695,
+    "r2_dx": 0.007586628032399734,
+    "r2_dy": 0.005513761644752813,
+    "sign_acc_dx": 0.54,
+    "sign_acc_dy": 0.55
+  },
+  "n_train": 200,
+  "n_features": 45669,
+  "features": "last_frame",
+  "types": "all",
+  "dataset": "dataset/synthetic_texture_lr"
+}
