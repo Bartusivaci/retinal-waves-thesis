@@ -51,7 +51,11 @@ def make_sample(root, record, mapper, device, n_frames, preroll=0, with_images=F
         stimulus = torch.cat([pad, stimulus], dim=1).contiguous()
     total = n_frames + preroll
     # Forward flow, same convention as the Sintel tutorial. Do NOT negate.
-    velocity = [float(record['dx_px_per_frame']), float(record['dy_px_per_frame'])]
+    # Unlabelled datasets (retinal waves) leave dx/dy empty: the target is then zeros and must not be scored.
+    if record.get('dx_px_per_frame', '') in ('', None):
+        velocity = [0.0, 0.0]
+    else:
+        velocity = [float(record['dx_px_per_frame']), float(record['dy_px_per_frame'])]
     target = torch.tensor(velocity, device=device, dtype=stimulus.dtype)
     target = target.view(1, 1, 2, 1).expand(1, total, 2, N_COLUMNS).contiguous()
     if with_images:
@@ -172,11 +176,22 @@ def input_dependence(metrics):
     return out
 
 
+def prediction_stats(pred):
+    """Label-free statistics of predicted flow [1,T,2,721] (for unlabelled datasets)."""
+    pred = pred.detach()
+    pm = pred.mean(dim=(0, 1, 3))
+    return dict(flow_abs_px=float(pred.abs().mean()), pred_std=float(pred.std()),
+                pred_mean_x=float(pm[0]), pred_mean_y=float(pm[1]))
+
+
 def summarize(metrics):
-    """Average per-clip metric dicts (skipping label_*) and add input-dependence metrics."""
+    """Average per-clip metric dicts (skipping label_*) and add input-dependence metrics
+    (label-based parts only when the per-clip dicts carry labels)."""
     means = {key: float(np.mean([m[key] for m in metrics])) for key in metrics[0]
              if not key.startswith('label_')}
     means['count'] = len(metrics)
-    means['improvement_over_zero_pct'] = 100.0 * (1.0 - means['epe_px'] / means['zero_epe_px'])
-    means.update(input_dependence(metrics))
+    if 'epe_px' in means:
+        means['improvement_over_zero_pct'] = 100.0 * (1.0 - means['epe_px'] / means['zero_epe_px'])
+    if 'label_x' in metrics[0]:
+        means.update(input_dependence(metrics))
     return means

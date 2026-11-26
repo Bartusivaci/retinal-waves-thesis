@@ -1,0 +1,5 @@
+Excluded folders: [145, 192, 835, 2118, 2579, 3168]; clip span 39 timesteps
+train: {'folders': 3195, 'candidates': 92737, 'tried': 12286, 'kept': 8000, 'acceptance': 0.651}
+val: {'folders': 399, 'candidates': 10708, 'tried': 317, 'kept': 200, 'acceptance': 0.631}
+test: {'folders': 400, 'candidates': 11580, 'tried': 310, 'kept': 200, 'acceptance': 0.645}
+Wrote 8400 clips to dataset/retinal_waves_gap2

@@ -43,7 +43,8 @@ from flyvis.network import Network
 from flyvis.task.decoder import DecoderGAVP
 from src.flow_training import (activity_penalty, add_activity_penalty_args, add_batching_args, add_perclip,
                                as_jsonable, bn_batch_statistics, central_cells_index, chunks, flow_metrics,
-                               initial_state, make_sample, read_manifest, resolve_clips_per_forward, summarize)
+                               initial_state, make_sample, prediction_stats, read_manifest,
+                               resolve_clips_per_forward, summarize)
 from src.flow_training import PERCLIP_KEYS
 from src.photoreceptor_mapper import PhotoreceptorWaveMapper
 
@@ -91,15 +92,17 @@ class PhotometricLoss:
         return photo + self.args.smooth_weight * smooth, photo, smooth, float(valid.mean())
 
 
-def clip_loss(pred, tgt, images, args, photometric):
-    """Photometric loss and metrics of one clip: pred/tgt [1, K, 2, 721], images [T, H, W]."""
+def clip_loss(pred, tgt, images, args, photometric, labels=True):
+    """Photometric loss and metrics of one clip: pred/tgt [1, K, 2, 721], images [T, H, W].
+    labels=False (retinal waves): tgt is a placeholder; only label-free prediction statistics are logged."""
     images = images.to(pred.device).float()
     loss, photo, smooth, valid = photometric(pred, images, args.warmup)
     # Reference: photometric loss of zero flow (= plain frame difference) on the same clip.
     with torch.no_grad():
         _, photo_zero, _, _ = photometric(torch.zeros_like(pred), images, args.warmup)
     return loss, dict(photo=float(photo.detach()), photo_zero=float(photo_zero),
-                      smooth=float(smooth.detach()), valid_frac=valid, **flow_metrics(pred, tgt))
+                      smooth=float(smooth.detach()), valid_frac=valid,
+                      **(flow_metrics(pred, tgt) if labels else prediction_stats(pred)))
 
 
 def decode(decoder, responses, target):
@@ -122,14 +125,15 @@ def forward(network, decoder, group, args, state, photometric, central_index=Non
     pred = decode(decoder, activity[:, skip:], tgt)
     losses, metrics = [], []
     for b, (_, _, images) in enumerate(group):
-        loss, m = clip_loss(pred[b:b + 1], tgt[b:b + 1], images, args, photometric)
+        loss, m = clip_loss(pred[b:b + 1], tgt[b:b + 1], images, args, photometric, args.has_labels)
         losses.append(loss); metrics.append(m)
     return torch.stack(losses).mean(), penalty, metrics
 
 
-def evaluate(network, decoder, examples, args, photometric):
+def evaluate(network, decoder, examples, args, photometric, labels=None):
     """One clip at a time. Standard eval mode (BN running statistics) gives the un-prefixed keys;
     the same predictions with BN using each clip's own statistics give perclip_bn_* (CLAUDE.md 6.13)."""
+    labels = args.has_labels if labels is None else labels
     network.eval(); decoder.eval()
     skip = args.preroll + args.warmup
     metrics, perclip = [], []
@@ -137,9 +141,9 @@ def evaluate(network, decoder, examples, args, photometric):
         for stimulus, target, images in examples:
             responses = network(stimulus, dt=args.dt, state=initial_state(network, args))[:, skip:]
             tgt = target[:, skip:]
-            metrics.append(clip_loss(decode(decoder, responses, tgt), tgt, images, args, photometric)[1])
+            metrics.append(clip_loss(decode(decoder, responses, tgt), tgt, images, args, photometric, labels)[1])
             with bn_batch_statistics(decoder):
-                perclip.append(clip_loss(decode(decoder, responses, tgt), tgt, images, args, photometric)[1])
+                perclip.append(clip_loss(decode(decoder, responses, tgt), tgt, images, args, photometric, labels)[1])
     network.train(); decoder.train()
     out, pc = summarize(metrics), summarize(perclip)
     for o in (out, pc):
@@ -192,6 +196,10 @@ def main():
     p.add_argument('--border-margin', type=float, default=10.0, help='masked border width, filtered-frame px')
     add_activity_penalty_args(p)
     add_batching_args(p)
+    p.add_argument('--transfer-dataset', type=Path, default=None,
+                   help='labelled synthetic dataset also evaluated at every validation and at test (keys transfer_*); '
+                        'measures whether training on an unlabelled dataset (waves) produces real motion estimates')
+    p.add_argument('--transfer-samples', type=int, default=100)
     p.add_argument('--load-checkpoint', type=Path, default=None)
     p.add_argument('--freeze-network', action='store_true')
     p.add_argument('--validate-every', type=int, default=1000)
@@ -209,6 +217,11 @@ def main():
     config = json.loads((args.dataset / 'config.json').read_text())
     if config['frames'] != args.frames or config['side'] != 64:
         p.error('Dataset must have --frames frames at 64x64')
+    args.has_labels = bool(config.get('labels', True))
+    if args.transfer_dataset is not None:
+        tconfig = json.loads((args.transfer_dataset / 'config.json').read_text())
+        if tconfig['frames'] != args.frames or tconfig['side'] != 64 or not tconfig.get('labels', True):
+            p.error('--transfer-dataset must be labelled, with --frames frames at 64x64')
     records = read_manifest(args.dataset)
     random.seed(args.seed); np.random.seed(args.seed); torch.manual_seed(args.seed)
     if torch.cuda.is_available():
@@ -237,14 +250,19 @@ def main():
     (out / 'settings.json').write_text(json.dumps(as_jsonable(vars(args)), indent=2))
     photometric = PhotometricLoss(mapper, network, args, device)
 
-    def load(row):
-        stimulus, target, images = make_sample(args.dataset, row, mapper, device, args.frames,
+    def load(row, root=args.dataset):
+        stimulus, target, images = make_sample(root, row, mapper, device, args.frames,
                                                args.preroll, with_images=True)
         return stimulus, target, images.half().cpu()   # images cached on CPU in fp16
+
+    def prefixed(summary):
+        return {f'transfer_{k}': v for k, v in summary.items()}
 
     val_rows = rng.sample(records['val'], args.val_samples)
     test_rows = rng.sample(records['test'], args.test_samples)
     if args.mode == 'check':
+        if not args.has_labels:
+            p.error('--mode check needs a labelled dataset')
         run_check([load(r) for r in val_rows], args, photometric, out)
         return
 
@@ -263,6 +281,11 @@ def main():
     training_cached = [load(r) for r in train_rows] if args.mode == 'overfit' else None
     validation_cached = [load(r) for r in val_rows]
     test_cached = [load(r) for r in test_rows]
+    transfer_val = transfer_test = None
+    if args.transfer_dataset is not None:   # own RNG, so the main sampling is unchanged by this option
+        trec, trng = read_manifest(args.transfer_dataset), random.Random(args.seed + 1)
+        transfer_val = [load(r, args.transfer_dataset) for r in trng.sample(trec['val'], args.transfer_samples)]
+        transfer_test = [load(r, args.transfer_dataset) for r in trng.sample(trec['test'], args.transfer_samples)]
     config_out = as_jsonable(vars(args))
     (out / 'sample_ids.json').write_text(json.dumps({
         'train_overfit': [r['id'] for r in train_rows] if args.mode == 'overfit' else None,
@@ -326,8 +349,9 @@ def main():
             delta = math.sqrt(sum(float((x.detach() - orig).square().sum())
                                   for x, orig in zip(net_parameters, initial_params))) if net_parameters else 0.0
             metrics = {k: float(np.mean([m[k] for m in batch_metrics])) for k in batch_metrics[0]}
+            if 'epe_px' in metrics:
+                metrics['improvement_over_zero_pct'] = 100 * (1 - metrics['epe_px'] / metrics['zero_epe_px'])
             metrics.update(step=step, id='|'.join(batch_ids), loss=float(np.mean(batch_losses)),
-                           improvement_over_zero_pct=100 * (1 - metrics['epe_px'] / metrics['zero_epe_px']),
                            network_change_l2=delta, network_grad_norm=grad_norm,
                            activity_penalty=float(np.mean(pen_values)) if pen_values else 0.0)
             writer.writerow(metrics)
@@ -335,6 +359,8 @@ def main():
                 print('Train:', json.dumps(metrics), flush=True)
             if step % args.validate_every == 0 or step == args.steps:
                 val = evaluate(network, decoder, validation_cached, args, photometric)
+                if transfer_val is not None:
+                    val.update(prefixed(evaluate(network, decoder, transfer_val, args, photometric, labels=True)))
                 val['step'] = step
                 (out / f'validation_step_{step:06d}.json').write_text(json.dumps(val, indent=2))
                 print('Validation:', json.dumps(val), flush=True)
@@ -345,6 +371,8 @@ def main():
             f.flush()
     save('final.pt', args.steps)
     final_test = evaluate(network, decoder, test_cached, args, photometric)
+    if transfer_test is not None:
+        final_test.update(prefixed(evaluate(network, decoder, transfer_test, args, photometric, labels=True)))
     final_test['step'] = args.steps
     (out / 'test_metrics.json').write_text(json.dumps(final_test, indent=2))
     print('Test:', json.dumps(final_test), flush=True)

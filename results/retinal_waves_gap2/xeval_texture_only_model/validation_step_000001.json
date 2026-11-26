@@ -1,0 +1,16 @@
+{
+  "photo": 0.013800976215861738,
+  "photo_zero": 0.022601101173786445,
+  "smooth": 0.06672603360377252,
+  "valid_frac": 0.9455931687355041,
+  "flow_abs_px": 0.32567209109663964,
+  "pred_std": 0.33529815219342707,
+  "pred_mean_x": 0.18912129829230254,
+  "pred_mean_y": 0.12872261677053756,
+  "count": 200,
+  "photo_improvement_over_zero_pct": 38.936708836697754,
+  "perclip_bn_photo": 0.014090109645621851,
+  "perclip_bn_photo_improvement_over_zero_pct": 37.657419710310144,
+  "perclip_bn_pred_mean_x": 0.10520651976577938,
+  "step": 1
+}

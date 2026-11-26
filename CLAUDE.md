@@ -20,6 +20,14 @@ Run everything from the repo root as modules (`python -m scripts.<name>`).
   (section 5b). Modes overfit / full / check.
 - `src/flow_training.py`: helpers shared by both trainers (make_sample, initial_state, activity penalty, flow/input-dependence metrics).
 - `src/photoreceptor_mapper.py`: `PhotoreceptorWaveMapper`, BoxEye(extent 15, kernel 13) → photoreceptor-only full-network stimulus `[1,T,n_nodes]`.
+- `scripts/eval_generalization.py`: run a checkpoint on other datasets' test splits (per-direction flow, angle error, static clips).
+- `src/wave_zip_index.py`: memory-light reader for `dataset/images.zip` (builds `dataset/images_index.npz` in 15 s; `WaveZip().read(folder, frame)`).
+  **Never open images.zip with `zipfile.ZipFile`**: its 8M-entry central directory OOM-kills WSL (7 GB).
+- `scripts/generate_wave_clips.py`: retinal-wave clips in the synthetic-dataset format (unlabelled; see 5b). Excludes corrupted folders,
+  rebuilds segments from the zip index, 20 frames every `--gap` timesteps, 4x4 area-average to 64x64, active fraction → luminance 0.2-0.8,
+  activity filter (mean >= 2%, peak >= 5%), max 4 clips per wave event, split by folder 80/10/10.
+  `python -m scripts.generate_wave_clips --gap 2 --output dataset/retinal_waves_gap2` (8000/200/200 clips).
+- `scripts/wave_stats.py`, `scripts/wave_speed.py`: wave dataset statistics (section 6.18); outputs in `results/wave_analysis/`.
 - Retinal-wave data tooling, kept for later: `scripts/generate_wave_manifest.py`, `src/retinal_wave_dataset.py`,
   `src/neuron_stimulation.py`, `scripts/test_dataset.py`, `scripts/test_neuron_stimulation.py`, `wave_manifest.csv`, `dataset/images.zip`.
 - Old retinal-wave / unsupervised-warping / v1-edge experiment scripts and results were removed on 2026-11-21 (commit "Clean up");
@@ -91,6 +99,10 @@ Plus an **activity penalty** on `nodes_bias` only (SGD, lr = network lr): pushes
 - Logged: photo, photo_zero (frame-difference reference), smooth, valid_frac, plus all supervised metrics against labels.
 - Caution: `photo_improvement_over_zero_pct` can also be faked by a constant on an imbalanced subset (smoke test: +11% with constant output).
 - Speed about 0.3 s/step.
+- **Unlabelled datasets** (`config.json` "labels": false, empty dx/dy): only label-free metrics are logged (photo, photo_zero, smooth,
+  valid_frac, flow_abs_px, pred_std, pred_mean_x/y). `--transfer-dataset dataset/synthetic_texture_only` additionally evaluates
+  `--transfer-samples` labelled clips at every validation and at test (keys `transfer_*`, incl. transfer_corr_clipmean_x/y,
+  transfer_balanced_sign_acc_x/y): the measure of whether wave training produces real motion estimates. `--mode check` needs labels.
 
 ## 6. Experiment log
 
@@ -172,6 +184,55 @@ Plus an **activity penalty** on `nodes_bias` only (SGD, lr = network lr): pushes
     - Some speed tuning, more than supervised: corr(|pred|, speed) 0.26 (right) / 0.89 (left), but slopes only 0.23-0.27 (ideal 1).
     - Activity penalty falls 1.99 → 1.76 (cells becoming more active); supervised stayed about 2.09.
 
+16. **(2026-11-26) What `selfsup_batched_30k` learned: a horizontal-motion detector** (scratch `generalize.py`, final.pt, eval mode, test splits).
+    - Output y is always about 0 (never trained: texture_lr has no vertical motion). On all-direction data (texture_only, edges v2) the x output
+      follows the **x component** of the motion: diagonals give about ±0.6-0.9 (label x ±0.6-0.7), vertical gives about 0 (one bin +0.32), corr x 0.91-0.93.
+      So it is a 1-D horizontal motion estimator, not a left/right classifier; it generalises to unseen directions and to edges.
+    - Static texture (no motion): |pred| 0.12, about zero. It responds to motion, not to the texture itself.
+    - Not yet tested: neuron-level tuning (DSI, ON/OFF), contrast/brightness invariance, probes for non-motion features.
+
+17. **(2026-11-26) `selfsup_batched_30k` on `synthetic_texture_only` (all directions, speed 0.6-1.4) — 2-D motion learned self-supervised.**
+    - Test: EPE 0.385 vs zero 1.008, corr x 0.94 / y 0.97, balanced sign x 0.99 / y 0.95. Phase transition about 7k (corr 0.86), later
+      and more gradual than texture_lr.
+    - `eval_generalization`: median angle error 9 deg (90th pct 24) on textures, 10 deg on edges v2 (unseen). Speed tuning corr(|pred|,|label|)
+      0.69 (wider speed range than texture_lr), but magnitudes underestimated: |pred| 0.77 vs 1.01 (edges 0.61). Static clips: |pred| 0.11.
+
+18. **(2026-11-26) Retinal-wave dataset (`dataset/images.zip`) analysis.**
+    - 4000 folders (one simulation each), `<folder>/parsed/<frame>_<timestep>.png`, 8.0M PNGs, stored uncompressed.
+      Frames are **binary** (bool 256x256: active / inactive cells), not grey-level.
+    - Each folder normally has exactly 2000 frames (frame index 0-1999) sampled from up to 9000 simulation timesteps.
+      Frames are saved only while there is activity: segments (runs of consecutive timesteps) start and end at about 0.4% active
+      (median), only 2% end above 5%. So **gaps between segments are quiet periods, not lost data**; each segment is roughly one wave event.
+    - **6 corrupted folders** (145, 192, 835, 2118, 2579, 3168) have duplicate frame indices (2 runs mixed; 835 also has a `raw/` subfolder
+      the manifest counted). They produce 11.8k of the 171k manifest segments (3168 alone 3524 one-frame segments). Exclude them.
+    - Clean folders: 159k segments, median 12 frames, 11k one-frame segments (noise blips); 54k segments >= 20 frames.
+    - Sample of 400 segments >= 20 frames: 23% nearly empty (max active < 1%, speckle only), 42% contain a substantial wave (max active > 10%).
+      Salt-and-pepper noise: about 7% of active pixels are isolated.
+    - Wave types (`results/wave_analysis/waves_sheet.png`): expanding rings (active front, refractory dark interior) that collide and merge;
+      noisy blobs that grow and fade; sparse persistent small spots (some long 2000-frame folders).
+    - **Front speed** (150 substantial waves, 64x64 units as in training): displacement grows linearly with the frame gap (median 0.43, 0.85, 1.72
+      for gaps 1, 2, 4), so it is motion, not flicker: **about 0.4 px/frame at 64x64** (IQR about 0.25-0.7) = about 1.7 px/frame native.
+      Our synthetic training used 0.6-1.4 px/frame, so a **frame gap of 2-3** puts waves in the trained range.
+
+19. **(2026-11-26) `selfsup_waves_30k` — first wave run (from scratch, photometric, retinal_waves_gap2, 30k).**
+    - On waves: test photo 0.0107 vs zero-flow 0.0228 (**53% better than zero flow**); falls steadily, no sharp phase transition.
+      Reference: the texture_only-trained model (6.17) applied to the wave test clips gets 37% (run folder `xeval_texture_only_model`, 1 step at lr 1e-12).
+    - Transfer to texture_only (test, eval mode): **correct direction, almost zero magnitude.** corr x 0.80 / y 0.82 (from about 0 at 1k,
+      rising to about 0.6-0.8 by 5k), but between-clip std about 0.01 (labels about ±1), so balanced sign flips between 0.5 and 0.9 from
+      one validation to the next (an offset of about 0.007 is as large as the signal); EPE about the same as zero flow. Per-clip BN: balanced sign 0.95.
+      Scratch `wave_transfer.py` (offset from static clips removed): median angle error 17 deg on textures, 15 deg on edges v2;
+      regression slope pred-on-label 0.013-0.017 (textures), 0.036-0.039 (edges), i.e. 1-4% of the true speed. Contrast x3 or binarised
+      textures make it worse (angle error about 100 deg), so it is not a simple contrast or appearance mismatch.
+    - **Linear probes (texture_only, time_stats, 200 train / 100 test clips, test improvement over zero):**
+      | network | all neurons | T4/T5 only |
+      |---|---|---|
+      | untrained | 8.6% (R2 x/y 0.13/0.08) | -0.1% (chance) |
+      | **wave-trained** | **38.9%** (R2 0.70/0.41) | **36.4%** (R2 0.57/0.51, sign 0.81/0.81) |
+      | texture-trained (6.17) | 61.4% (R2 0.79/0.83) | 67.3% (R2 0.84/0.88) |
+      **Wave training alone made T4/T5 carry linearly decodable 2-D motion information about textures they never saw** (from chance to 36%),
+      a bit over half of what direct texture training gives. The decoder is the weak link in transfer (wave-specific scale), not the network.
+    - Vertical is weaker than horizontal in the probes (R2 y 0.41 all neurons), unlike the texture model.
+
 ## 7. Status
 
 - 2026-11-21: repo cleaned up; trainer self-contained (`src/photoreceptor_mapper.py`); datasets regenerated (identical to before, same seeds).
@@ -187,11 +248,15 @@ Plus an **activity penalty** on `nodes_bias` only (SGD, lr = network lr): pushes
 ## 8. Next steps
 
 1. Done (2026-11-22): both batched 30k runs succeeded (6.14, 6.15).
-2. Before retinal waves: add a census-transform photometric loss option (UFlow, "What Matters in Unsupervised Optical Flow").
+2. Done (2026-11-26): first wave run (6.19). Wave-trained T4/T5 carry motion information about textures; the decoder output is wave-scaled.
+   Next: the thesis experiment (step 4) is now the priority: load `results/retinal_waves_gap2/selfsup_waves_30k/final.pt` and fine-tune
+   on texture_only/texture_lr, versus from scratch. Also cheap: refit only the decoder on texture_only with the wave network frozen
+   (`--freeze-network`), to separate representation from readout.
+3. Add a census-transform photometric loss option (UFlow, "What Matters in Unsupervised Optical Flow").
    Waves violate brightness constancy (rise/decay), and census is robust to that. Also revisit the frame gap (wave motion per frame is small).
-3. Thesis experiment design: pre-train on waves (self-supervised) → supervised fine-tune on texture_lr; compare steps to the phase
+4. Thesis experiment design: pre-train on waves (self-supervised) → supervised fine-tune on texture_lr; compare steps to the phase
    transition (from scratch, batched: about 9-11k supervised, 6-7k self-supervised) and probe results with the from-scratch baseline.
-4. Harder supervised tasks (4/all directions, wider speed range) and FlyVis MovingEdge DSI characterisation (unchanged).
+5. Harder supervised tasks (4/all directions, wider speed range) and FlyVis MovingEdge DSI characterisation (unchanged).
 
 ## 9. Open questions
 
